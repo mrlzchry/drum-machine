@@ -90,28 +90,30 @@ const DrumMachine = () => {
 
   //bind key to their respective audio using addEventListener
 useEffect( () => {
+  document.addEventListener("keydown", keyPressed);
+  return () => {document.removeEventListener("keydown", keyPressed)}
   
-  const keyPressed = (event) => {
-    Audios.map((item) => {
-      if (event.keyCode === item.keyCode) {
-        var audio = document.getElementById(item.key);
-        audio.currentTime = 0;
-        audio.volume = volume;
-        setText(item.audio);
-        audio.play();
-      }
-      return keyPressed;
-    })
-  }
-
-  const changeVolume = (event) => {
-    setVolume(event.target.value/100);
-  }
-
-  document.addEventListener("keydown", keyPressed, false);
-  document.addEventListener("change", changeVolume, false);
-} 
+}
 )
+
+// function for binding key to respective audio
+const keyPressed = (event) => {
+  Audios.map((item) => {
+    if (event.keyCode === item.keyCode) {
+      var audio = document.getElementById(item.key);
+      audio.currentTime = 0;
+      audio.volume = volume;
+      setText(item.audio);
+      audio.play();
+    }
+    return keyPressed;
+  })
+}
+
+// function for changing volume
+const changeVolume = (event) => {
+  setVolume(event.target.value/100);
+}
 
 // function to setup the drumpads with respective audio
 const setupDrumPads = (item) => {
@@ -132,10 +134,11 @@ const setupDrumPads = (item) => {
           </div>
           <div id='inner-text'>{text}</div>
           <div>
-          <input id='volume' type='range'></input>
+          <input id='volume' type='range' onChange={changeVolume}></input>
           </div>
+          <p id='name'>By Ammarul</p>
+          <a id='source-code' href='https://github.com/mrlzchry/drum-machine'>Source Code</a>
         </div>
-        
       </div>
   )
 }
