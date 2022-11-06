@@ -59,9 +59,9 @@
   cursor: pointer;
 }
 
-.drum-pad:active {
+/* .drum-pad:active {
   background-color: rgb(185, 126, 36);
-}
+} */
 
 #inner-text {
   background-color: whitesmoke ;
@@ -92,4 +92,8 @@
 
 #name {
   font-size: small;
+}
+
+.active {
+  background-color: rgb(185, 126, 36);
 }

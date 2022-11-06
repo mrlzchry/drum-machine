@@ -18,7 +18,7 @@ export default App;
 const DrumMachine = () => {
 
   const [text, setText] = useState('');
-  const [volume, setVolume] =useState(0.5);
+  const [volume, setVolume] = useState(0.5);
 
 //each audios are listed as objects in one array
  const Audios = [
@@ -98,12 +98,15 @@ useEffect( () => {
 
 // function for binding key to respective audio
 const keyPressed = (event) => {
+  
   Audios.map((item) => {
     if (event.keyCode === item.keyCode) {
       var audio = document.getElementById(item.key);
       audio.currentTime = 0;
       audio.volume = volume;
       setText(item.audio);
+      document.getElementById(item.audio).classList.add('active');
+      setTimeout(() => document.getElementById(item.audio).classList.remove('active'), 200);
       audio.play();
     }
     return keyPressed;
@@ -117,12 +120,14 @@ const changeVolume = (event) => {
 
 // function to setup the drumpads with respective audio
 const setupDrumPads = (item) => {
-  return <div id={item.audio} className='drum-pad' onClick={() => {
+  return <div id={item.audio} className={`drum-pad`} onClick={() => {
     var audio = document.getElementById(item.key);
     audio.currentTime = 0;
     audio.volume = volume;
-    audio.play();
     setText(item.audio);
+    document.getElementById(item.audio).classList.add('active');
+    setTimeout(() => document.getElementById(item.audio).classList.remove('active'), 200);
+    audio.play();
   }}>{item.key}<audio className='clip' id={item.key} src={item.url}></audio></div>
 }
 
